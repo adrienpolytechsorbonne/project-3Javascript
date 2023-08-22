@@ -1,3 +1,16 @@
+
+function displayTableWithError(array) {
+    const tableContainer = document.getElementById("tableError");
+    const row = document.createElement("tr");
+    for (const item of array) {
+        const cell = document.createElement("td");
+        cell.textContent = item;
+        row.appendChild(cell);
+    }
+    tableContainer.appendChild(row);
+}
+
+
 var array_number = new Array(9);
 array_number[0]= "4 2 7 3 5 1 9 8 6"; 
 array_number[1]= "9 8 3 7 6 2 5 1 4"; 
@@ -52,7 +65,6 @@ function areInputNumbers(table){
         verifyNum = false;
     }
 
-    displayTableWithError(verifyNum,table);
     return verifyNum;
 }
 
@@ -61,13 +73,14 @@ an anomaly between elements (some are not numbers or two numbers are repeated) o
 */
 function verifyGridByLine(checkbox){
     for(let i=0;i<checkbox.length;i++){
-        if(areInputNumbers(checkbox[i])==false)
+        if(areInputNumbers(checkbox[i])==false){
+            displayTableWithError(checkbox[i]);
             throw new Error(`One element is NaN or two numbers are the same ! Error line number : ${i} with values : ${checkbox[i]}`);   
+        }
     }
-    console.log("Each line is correct");
 }
 
-verifyGridByLine(to_verify); // throws an error on the 9th row
+//verifyGridByLine(to_verify); // throws an error on the 9th row
 
 /* 2.Function verifyGridByColumn : displays an error message if there is
 an anomaly between elements (some are not numbers or two numbers are repeated) on each column of the grid
@@ -76,9 +89,8 @@ function verifyGridByColumn(checkbox){
     for(let i=0;i<checkbox.length;i++){
         const column = checkbox.map(row => row[i]);
         if(areInputNumbers(column)==false)
-            throw new Error(`One element is NaN or two numbers are the same ! Error line number : ${i} with values : ${column}`);
+            throw new Error(`One element is NaN or two numbers are the same ! Error column number : ${i} with values : ${column}`);
     }
-    console.log("Each column is correct");
 }
 
 verifyGridByColumn(to_verify); // throws an error on the 9th column
@@ -93,10 +105,9 @@ function verifyGridByRegion(checkbox){
             const region = checkbox.slice(j, j+3).map(row => row.slice(i, i+3));
             const regList = region.flat();
             if(areInputNumbers(regList)==false)
-                throw new Error(`One element is NaN or two numbers are the same ! Error line number : ${Math.max(i+3,j+3)} with values : ${regList}`);
+                throw new Error(`One element is NaN or two numbers are the same ! Error region number : ${Math.max(i+3,j+3)} with values : ${regList}`);
         }
     }
-    console.log("Each region is correct");
 }
 
 verifyGridByRegion(to_verify); // throws an error on the 9th region
