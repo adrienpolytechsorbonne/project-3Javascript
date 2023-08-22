@@ -105,6 +105,7 @@ verifyGridByRegion(to_verify); // throws an error on the 9th region
 /* 4. Function displayTableWithError : Put the values of the box to be checked in a table
       (1-dimensionnal array as input, HTML table as output).
 */
+/*
 function displayTableWithError(bool,table){
     if(bool==false){
         const tableError = document.getElementById("tableError");
@@ -117,3 +118,5 @@ function displayTableWithError(bool,table){
         tableContainer.appendChild(row);
     }
 }
+
+*/
